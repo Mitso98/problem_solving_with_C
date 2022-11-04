@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1667305692 source:d:\iti\c\labs\largest_num\main.c
+	<stdio.h>
+	<stdlib.h>
+

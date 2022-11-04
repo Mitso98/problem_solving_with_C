@@ -1,0 +1,8 @@
+1- Write a C program to check whether a given number is positive or negative or zero
+2- Write a C program to check whether a given number is even or odd
+3- C Program to Find the Largest Number Among Three Numbers
+4- Write a program that reads a student grade percentage and prints "Excellent"
+ if his grade is greater than or equal 85, "Very Good" for 75 or greater; "Good" for 65,
+ "Pass" for 50, "Fail" for less than 50
+5-Write a program to make a simple calculator using switch-case.
+ The calculator takes the operation (+ or – or * or /) and takes the two input arguments and print the results

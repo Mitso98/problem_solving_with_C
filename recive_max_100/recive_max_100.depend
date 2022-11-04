@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1667387671 source:d:\iti\c\labs\recive_max_100\main.c
+	<stdio.h>
+	<stdlib.h>
+

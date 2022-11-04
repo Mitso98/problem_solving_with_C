@@ -1,0 +1,32 @@
+Day3:
+=====
+
+Answer the following questions:
+--------------------------------
+
+1- Receive numbers from the user, and exit when the sum exceeds 100.
+  
+2- Simple Menu with 3 choices.    
+
+3- Magic Box.
+	Input: int size size must be odd
+	Max input = input * input
+	intiate value= 1; row_pos = 0; column_pos = (size + 1)/2
+	if i % 3 != 0 row++ else row-- col-- // go up left, if 
+	
+  
+4- Write a function takes 3 numbers as parameter, and returns the largest one among them... write a program to test it.
+
+5- Write a C Function that takes one character and checks if it alphabet or not.
+
+6- Write C Function that converts the any letter from lowercase to uppercase.
+
+7-Write a C Function that prints the cube of any number.
+
+Answer "as much as you can" from the following:
+------------------------------------------------
+8- C Program to Generate Multiplication Table "1*3=3, 2*3=6, ..."
+
+9- C Program to count number of Alphabets & number of words in a sentence. (word count)
+
+
