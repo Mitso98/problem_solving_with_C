@@ -1,10 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define STRING_SIZE 200
+#define STRING_SIZE 100
 //9) C Program to Remove all Characters in a String Except Alphabet
-/*
-char* clean_str(const char* str, int length);
 
+char* clean_str(const char* str, int length);
+//simple solution
+int main()
+{
+    char input;
+    char clean_string[STRING_SIZE];
+    int counter = 0;
+    printf("Enter string: ");
+    while(10 != input && counter < STRING_SIZE){
+        // get user input
+        scanf("%c", &input);
+        //filter only alphabets
+        if((input >= 65 && input <= 90) || (input >= 97 && input <= 122))
+        {
+            clean_string[counter] = input;
+            counter++;
+        }
+    }
+    // avoid printing the array if it's empty so it does not show garbage value
+    if (!counter){
+        printf("You did not enter valid value");
+    }else{
+
+        printf("%s", clean_string);
+    }
+    return 0;
+}
+
+/*
+//solution with a function that can pass an array.
 int main()
 {
     // initialize a dummy value to start looping
@@ -53,27 +81,4 @@ char* clean_str(const char* str, const int total_length)
     return clean_str;
 }
 */
-int main()
-{
-    char input;
-    char clean_string[STRING_SIZE];
-    int counter = 0;
-    printf("Enter string: ");
-    while(10 != input && counter < STRING_SIZE){
-        scanf("%c", &input);
-        if((input >= 65 && input <= 90) || (input >= 97 && input <= 122))
-        {
-            clean_string[counter] = input;
-            counter++;
-        }
-    }
-
-    if (!counter){
-        printf("You did not enter any value");
-    }else{
-
-        printf("%s", clean_string);
-    }
-    return 0;
-}
 
