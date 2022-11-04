@@ -13,7 +13,7 @@ int main()
     while (counter < SIZE && 10 != input) // 10 is ASCI for ENTER key
     {
         scanf("%c", &input);
-        // will count any thing except enter
+        // will count any thing except ENTER key
         if (10 != input)
         {
             str[counter] = input;
