@@ -3,13 +3,13 @@
 #include <dos.h>
 #include <dir.h>
 #include<windows.h>
-#define SIZE 2
+#define SIZE 50
 //4- Employee with functions and Highlight Menu: Menu of Array_Of_Struct
 
-void get_data();
+void get_data(int);
 void print_data(int);
-void print_data_header(int);
-void move_pos(int, int*);
+void print_data_header(int, int);
+void move_pos(int, int*, int);
 void gotoxy(int x,int y);
 void SetColor(int ForgC);
 typedef struct Employee
@@ -21,33 +21,36 @@ Employee emp_array[SIZE];
 
 int main()
 {
+    int length;
+    printf("How many employees do you have? ");
+    scanf("%d", &length);
+
     int pos = 1;
     int input;
 
-    get_data();
+    get_data(length);
 
     while(1)
     {
-        print_data_header(pos);
+        print_data_header(pos, length);
         input = getche();
-        move_pos(input, &pos);
-        if (13 == input && SIZE + 1 != pos)
+        move_pos(input, &pos, length);
+        if (13 == input && length + 1 != pos)
         {
             print_data(pos);
             input = getche();
         }
-        else if ((13 == input && SIZE + 1 == pos))
+        else if ((13 == input && length + 1 == pos))
         {
-
             return 0;
         }
     }
 }
 
-void get_data()
+void get_data(int length)
 {
     // get data
-    for (int i = 0; i < SIZE; ++i)
+    for (int i = 0; i < length; ++i)
     {
         // to know which position we are at
         printf("Employee %d data\n", i + 1);
@@ -80,25 +83,24 @@ void print_data(int pos)
     SetColor(7);
     printf("Employee Name: %s\n", emp_array[pos].name);
 }
-void print_data_header(int pos)
+void print_data_header(int pos,int length)
 {
     system("cls");
     //print data
-    for (int i = 0; i < SIZE; ++i)
+    for (int i = 0; i < length; ++i)
     {
         gotoxy(50,i*5);
         SetColor(i + 1 == pos? 5 : 7);
         printf("Employee Name: %s\n", emp_array[i].name);
     }
     // EXIT will always be printed
-    gotoxy(50, SIZE*5);
-    SetColor((SIZE + 1) == pos ? 5 : 7);
+    gotoxy(50, length*5);
+    SetColor((length + 1) == pos ? 5 : 7);
     printf("EXIT");
 }
-move_pos(int input, int *pos)
+move_pos(int input, int *pos, int length)
 {
-    printf(">> %d", *pos);
-    if (80 == input && (SIZE + 1) > *pos)
+    if (80 == input && (length + 1) > *pos)
     {
         *pos += 1;// go up
     }
@@ -106,7 +108,6 @@ move_pos(int input, int *pos)
     {
         *pos -= 1;// go down
     }
-    printf("<<< %d", *pos);
 }
 void SetColor(int ForgC)
 {
