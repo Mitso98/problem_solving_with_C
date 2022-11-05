@@ -1,0 +1,17 @@
+Day 5:
+======
+
+Answer the following questions:
+--------------------------------
+
+1- C Program to take single Employee's information(ID, Name, Salary, Bonus, Deduction)
+, and display his code, name along with his net salary. (Emp_Struct)
+
+2- C Program to take information of Array of 5 Employees, then display their data. (EmpArr_of_Struct)
+
+3- Employee with Functions (try to divide Ass#2 into 2 functions): 
+	struct Employee AddNewEmployee();
+	void DisplayEmployee(struct Employee); 
+
+4- Employee with functions and Highlight Menu: Menu of Array_Of_Struct
+
