@@ -26,7 +26,6 @@ int main()
     {
         input = getche();
         move(&pos, input);
-
         system("cls");
         draw_line_number(pos);
         draw_option_one(pos);
