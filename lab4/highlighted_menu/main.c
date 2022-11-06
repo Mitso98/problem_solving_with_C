@@ -11,6 +11,7 @@ void draw_line_number(int);
 void draw_option_one(int);
 void draw_option_two(int);
 void draw_exit(int);
+void move(int *pos, int input);
 int main()
 {
     int pos = 1;
@@ -24,14 +25,7 @@ int main()
     while(1)
     {
         input = getche();
-        if (72 == input && 3 > pos)
-        {
-            pos++;
-        }
-        else if (80 == input && 1 < pos)
-        {
-            pos--;
-        }
+        move(&pos, input);
 
         system("cls");
         draw_line_number(pos);
@@ -81,6 +75,16 @@ void draw_exit(int pos)
     gotoxy(50,15);
     SetColor(pos == 1 ? 5 : 7);
     printf("EXIT");
+}
+void move(int *pos, int input){
+        if (72 == input && 3 > *pos)
+        {
+            *pos+= 1;
+        }
+        else if (80 == input && 1 < *pos)
+        {
+            *pos-= 1;
+        }
 }
 
 void SetColor(int ForgC)
