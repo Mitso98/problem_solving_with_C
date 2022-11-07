@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define STRING_SIZE 100
+#define STRING_SIZE 1000
 //9) C Program to Remove all Characters in a String Except Alphabet
 
 char* clean_str(const char* str, int length);
