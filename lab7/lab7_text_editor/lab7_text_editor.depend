@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1667845927 source:d:\iti\c\labs\problem_solving_with_c\lab6\lab7_text_editor\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1667853345 source:d:\iti\c\labs\problem_solving_with_c\lab7\lab7_text_editor\main.c
+	<stdio.h>
+	<stdlib.h>
+
