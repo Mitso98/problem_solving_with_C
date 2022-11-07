@@ -6,9 +6,9 @@
 #define SIZE 50
 //4- Employee with functions and Highlight Menu: Menu of Array_Of_Struct
 
-void get_data(int);
-void print_data(int);
-void print_data_header(int, int);
+int get_data(int *);
+int print_data(int length);
+void front_page(int);
 void move_pos(int, int*, int);
 void gotoxy(int x,int y);
 void SetColor(int ForgC);
@@ -21,86 +21,99 @@ Employee emp_array[SIZE];
 
 int main()
 {
+    /*
     int length;
     printf("How many employees do you have? ");
     scanf("%d", &length);
+    */
 
-    int pos = 1;
-    int input;
+    int pos = 1; // our position at the terminal
+    int input; // input from user
+    const int length = 3; //length of front page items
+    int employees_number = 0; // number of employees we have
 
-    get_data(length);
 
     while(1)
     {
-        print_data_header(pos, length);
+        front_page(pos);
         input = getche();
         move_pos(input, &pos, length);
-        if (13 == input && length + 1 != pos)
+        if (13 == input && 1 == pos)
         {
-            print_data(pos);
+            get_data(&employees_number);
             input = getche();
         }
-        else if ((13 == input && length + 1 == pos))
+        else if (13 == input && 2 == pos)
         {
+             print_data(employees_number);
+            input = getche();
+        }
+        else if (13 == input && 3 == pos){
             return 0;
         }
     }
 }
 
-void get_data(int length)
+int get_data(int *length)
 {
-    // get data
-    for (int i = 0; i < length; ++i)
-    {
-        // to know which position we are at
-        printf("Employee %d data\n", i + 1);
-        //get user data
-        printf("Employee ID: ");
-        scanf("%d", &emp_array[i].id);
-
-        printf("Employee Salary: ");
-        scanf("%d", &emp_array[i].salary);
-
-        printf("Employee Name: ");
-        scanf("%s", emp_array[i].name);
-    }
-}
-void print_data(int pos)
-{
-    // this function will print data of only one employee
-    // we will decrease position by one to start from 0 like the index
-    pos--;
+    char input;
+    do{
     system("cls");
+    //get user data
+    printf("Employee ID: ");
+    scanf("%d", &emp_array[*length].id);
 
-    //show user data
-    gotoxy(50,10);
-    SetColor(7);
-    printf("Employee ID: %d\n", emp_array[pos].id);
-    gotoxy(50,11);
-    SetColor(7);
-    printf("Employee Salary: %d\n", emp_array[pos].salary);
-    gotoxy(50,12);
-    SetColor(7);
-    printf("Employee Name: %s\n", emp_array[pos].name);
+    printf("Employee Salary: ");
+    scanf("%d", &emp_array[*length].salary);
+
+    printf("Employee Name: ");
+    scanf("%s", emp_array[*length].name);
+    *length += 1;
+
+    // clear the buffer
+    fflush(stdin);
+    printf("if you want to add more employee press c, to exit press any key...");
+    scanf("%c", &input);
+
+    // accept c and C
+   } while (67 == (int) input || 99 == (int) input);
 }
-void print_data_header(int pos,int length)
+int print_data(int length)
 {
     system("cls");
-    //print data
-    for (int i = 0; i < length; ++i)
-    {
-        gotoxy(50,i*5);
-        SetColor(i + 1 == pos? 5 : 7);
-        printf("Employee Name: %s\n", emp_array[i].name);
+    // this function will print data of all employees
+    if (0 == length){
+        printf("No data to be shown");
+        return 1;
     }
-    // EXIT will always be printed
-    gotoxy(50, length*5);
-    SetColor((length + 1) == pos ? 5 : 7);
+    for (int i = 0; i < length; i++){
+        printf("ID: %d\n", emp_array[i].id);
+        printf("Name: %s\n", emp_array[i].name);
+        printf("Salary: %d\n", emp_array[i].salary);
+        printf("---------------------------------------\n");
+    }
+    return 0;
+}
+void front_page(int pos)
+{
+    system("cls");
+
+    gotoxy(50,0*5);
+    SetColor(1 == pos? 5 : 7);
+    printf("Add Employee");
+
+    gotoxy(50,1*5);
+    SetColor(2 == pos? 5 : 7);
+    printf("Display Employees");
+
+    // EXIT
+    gotoxy(50, 2*5);
+    SetColor(3 == pos ? 5 : 7);
     printf("EXIT");
 }
-move_pos(int input, int *pos, int length)
+void move_pos(int input, int *pos, int length)
 {
-    if (80 == input && (length + 1) > *pos)
+    if (80 == input && length > *pos)
     {
         *pos += 1;// go up
     }
