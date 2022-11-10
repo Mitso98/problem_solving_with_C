@@ -3,7 +3,7 @@
 #include <dos.h>
 #include <dir.h>
 #include <windows.h>
-// TODO fix max column and backspace bug
+// TODO push values from anywwhere
 typedef struct node
 {
     char val;
@@ -20,10 +20,10 @@ typedef struct column_size
     struct column_size *next;
 } Col_size;
 
-void push(Node *head, int val, int *max_col, int *max_row, int *col, int *row);
+void push(Node *head, int val, int *max_col, int *max_row, int *col, int *row, int *total_col_at_max);
 void print_char(Node *head);
 // void print_all(Node *head);
-void control_extended_keys(int input, int *col, int *row, int max_col, int max_row);
+void control_extended_keys(int input, int *col, int *row, int max_col, int max_row, Node *head);
 void remove_node(int *col, int *row, int *max_col, int *max_row, Node *head);
 void gotoxy(int x, int y);
 
@@ -33,6 +33,7 @@ int main()
     int col = 0;
     int row = 0;
     int max_col = 0;
+    int total_col_at_max = 0;
     int max_row = 0;
 
     Node *head = (Node *)malloc(sizeof(Node));
@@ -44,7 +45,7 @@ int main()
         if (224 == input)
         {
             input = getch();
-            control_extended_keys(input, &col, &row, max_col, max_row);
+            control_extended_keys(input, &col, &row, max_col, max_row, head);
         }
         else
         {
@@ -56,52 +57,63 @@ int main()
             }
             else
             {
-                push(head, input, &max_col, &max_row, &col, &row);
+                push(head, input, &max_col, &max_row, &col, &row, &total_col_at_max);
                 print_char(head);
             }
         }
         gotoxy(50, 20);
         printf("col: %d row: %d\n", col, row);
-        printf("max_col: %d max_row: %d\n", max_col, max_row);
+        printf("max_col: %d, number of col at it's max: %d max_row: %d\n", max_col, total_col_at_max, max_row);
         gotoxy(col, row);
     } while (27 != input);
 
     print_char(head);
     return 0;
 }
-void push(Node *head, int val, int *max_col, int *max_row, int *col, int *row)
+void push(Node *head, int val, int *max_col, int *max_row, int *col, int *row, int *total_col_at_max)
 {
-    Node *current = head;
-    // push to the end of the list.
-    while (current->next != NULL)
-    {
-        current = current->next;
-    }
-    // instructions if new line is entered
-    if (13 == val)
-    {
-        current->next = (Node *)malloc(sizeof(Node));
-        current->next->val = '\n';
-        *max_row += 1;
-        *row += 1;
-        current->next->row_pos = *max_row;
-        *col = 0;
-        current->next->col_pos = *col;
-        current->next->next = NULL;
-    }
-    else
-    {
-        // instructions for any other value
-        current->next = (Node *)malloc(sizeof(Node));
-        current->next->val = val;
-        current->next->row_pos = *max_row;
-        *col += 1;
-        current->next->col_pos = *col;
-        current->next->next = NULL;
-    }
-    // increase max_col only if col exceded it
-    *max_col = *col > *max_col ? *col : *max_col;
-    gotoxy(*col, *row);
+
+        Node *current = head;
+        // push to the end of the list.
+        while (current->next != NULL)
+        {
+            current = current->next;
+        }
+        // instructions if new line is entered
+        if (13 == val)
+        {
+            current->next = (Node *)malloc(sizeof(Node));
+            current->next->val = '\n';
+            *max_row += 1;
+            *row += 1;
+            current->next->row_pos = *max_row;
+            *col = 0;
+            current->next->col_pos = *col;
+            current->next->next = NULL;
+            // to keep track of how many columns at it's maximum we have
+            if (current->col_pos == *max_col && 0 != *row)
+            {
+                *total_col_at_max += 1;
+            }
+            else if (current->col_pos > *max_col)
+            {
+                *total_col_at_max = 0;
+            }
+        }
+        else
+        {
+            // instructions for any other value
+            current->next = (Node *)malloc(sizeof(Node));
+            current->next->val = val;
+            current->next->row_pos = *max_row;
+            *col += 1;
+            current->next->col_pos = *col;
+            current->next->next = NULL;
+        }
+        // increase max_col only if col exceded it
+        *max_col = *col > *max_col ? *col : *max_col;
+        gotoxy(*col, *row);
+
 }
 void print_char(Node *head)
 {
@@ -114,7 +126,6 @@ void print_char(Node *head)
     }
 }
 /*
-
 void print_all(Node *head)
 {
     system("cls");
@@ -127,7 +138,6 @@ void print_all(Node *head)
 }
 */
 /*
-
 int get_col_size(int row, Node *head)
 {
     Col_size *current = head_col_size;
@@ -138,20 +148,55 @@ int get_col_size(int row, Node *head)
     return current->size;
 }
 */
-void control_extended_keys(int input, int *col, int *row, int max_col, int max_row)
+void control_extended_keys(int input, int *col, int *row, int max_col, int max_row, Node *head)
 {
+    // get maximum colum relative to row
+    Node *current = head->next;
+    Node *prev = NULL;
+    if (77 == input)
+    {
+        while (current->next != NULL && current->row_pos <= *row)
+        {
+            prev = current;
+            current = current->next;
+        }
+        // to solve a bug that i can not catch x)
+        if (*row == max_row)
+        {
+            prev = current;
+        }
+    }
+
     // 72 up arrow
     if (72 == input && 0 < *row)
     {
         *row -= 1;
+        // get maximum colum relative to row
+        Node *current = head->next;
+        Node *prev = NULL;
+        while (current->next != NULL && current->row_pos <= *row)
+        {
+            prev = current;
+            current = current->next;
+        }
+        *col = prev->col_pos;
         gotoxy(*col, *row);
     }
     else if (80 == input && *row < max_row) // 80 down arrow
     {
         *row += 1;
+        // get maximum colum relative to row
+        Node *current = head->next;
+
+        while (current->next != NULL && current->row_pos <= *row)
+        {
+
+            current = current->next;
+        }
+        *col = current->col_pos;
         gotoxy(*col, *row);
     }
-    else if (77 == input && *col < max_col) // 77 right arrow
+    else if (77 == input && *col < prev->col_pos) // 77 right arrow
     {
         *col += 1;
         gotoxy(*col, *row);
