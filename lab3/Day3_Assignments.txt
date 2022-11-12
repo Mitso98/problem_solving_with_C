@@ -9,11 +9,6 @@ Answer the following questions:
 2- Simple Menu with 3 choices.    
 
 3- Magic Box.
-	Input: int size size must be odd
-	Max input = input * input
-	intiate value= 1; row_pos = 0; column_pos = (size + 1)/2
-	if i % 3 != 0 row++ else row-- col-- // go up left, if 
-	
   
 4- Write a function takes 3 numbers as parameter, and returns the largest one among them... write a program to test it.
 
