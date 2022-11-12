@@ -7,6 +7,7 @@
 typedef struct score
 {
     int score;
+
     struct score * next;
 } Score;
 typedef struct student
@@ -87,7 +88,6 @@ void fill_data(Student * head)
         {
             printf("Enter student %d score: ", current->student_id);
             scanf("%d", &input);
-            current->subjects_count += 1;
             score->score = input;
             score->next = (Score*)malloc(sizeof(Score));
             score->next->next = NULL;
@@ -127,21 +127,30 @@ void print_all(Student* head)
         printf("Student %d scored %d\n", current->student_id, sum);
         sum = 0;
     }
-
-    current = head;
-
+    int avg_ctr = 0;
+    int counter = 0;
+    int loop = 0;
+    sum = 0;
     for (int i = 0; i < subj_ctr; i++)
     {
-        for (int j = i; j < std_ctr; j++){
+        current = head;
+        for (int j = 0; j < std_ctr; j++)
+        {
             current = current->next;
             score = current->next_score;
+            while(score->next->next != NULL && counter < loop)
+            {
+                score = score->next;
+                counter++;
+            }
+            counter = 0;
+            sum += score->score;
+            avg_ctr++;
         }
-        sum += score->score;
-        if (subj_ctr % std_ctr == 0)
-        {
-            printf("Done\n");
-            sum = 0;
-        }
+        loop++;
+        printf("AVG: %d\n", sum);
+        sum = 0;
+        avg_ctr = 0;
     }
 }
 
