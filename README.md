@@ -70,3 +70,38 @@ Applying knowladge along with introduction to programing course.
         C Program to Remove all Characters in a String Except Alphabet
 
         Highlight Menu: New Colored Menu "with Arrows"
+
+    - Lab 5
+
+        1- C Program to take single Employee's information(ID, Name, Salary, Bonus, Deduction)
+        , and display his code, name along with his net salary. (Emp_Struct)
+
+        2- C Program to take information of Array of 5 Employees, then display their data. (EmpArr_of_Struct)
+
+        3- Employee with Functions (try to divide Ass#2 into 2 functions):
+        struct Employee AddNewEmployee();
+        void DisplayEmployee(struct Employee);
+
+        4- Employee with functions and Highlight Menu: Menu of Array_Of_Struct
+
+    - Lab 6
+        1) Input and Output from Array using pointers:
+        C Program that have an Array of integers, read array data from user, Ptr -> Arr, print that array using Ptr.
+        (try to use "Array Notation while reading data" and "Pointer notation while printing data")
+
+        2) Recursive: Power.
+
+    - Lab 7
+        1. int* IncrementArray()
+        - try to return fixed Array first, see what happened.
+        - then rerun dynamically allocated array.
+
+
+        2. Employee with Dynamic Allocation and Highlight Menu (allow the user to specify the size of array at runtime).
+
+
+        3. C Program to calculate sum of student degrees, and average of each subject, asks the user for
+        students and subject numbers. (Dynamic Allocation of 2D Array - Pointer to Pointer)
+
+    - Bounes:
+        Single line editor with backspace
