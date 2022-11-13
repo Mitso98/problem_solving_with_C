@@ -111,6 +111,7 @@ void print_all(Student* head)
     int sum = 0;
     int std_ctr = 0;
     int subj_ctr = 0;
+    int count_max = 0;
     while(current->next != NULL)
     {
         current = current->next;
@@ -121,9 +122,11 @@ void print_all(Student* head)
             // sum of degrees for each student
             sum += score->score;
             score = score->next;
-            subj_ctr++;
+            count_max++;
         }
         while(score->next != NULL);
+        subj_ctr = subj_ctr < count_max ? count_max + subj_ctr:   subj_ctr;
+        count_max = 0;
         printf("Student %d scored %d\n", current->student_id, sum);
         sum = 0;
     }
@@ -143,12 +146,12 @@ void print_all(Student* head)
                 score = score->next;
                 counter++;
             }
+            sum = counter == loop ? sum + score->score: sum;
             counter = 0;
-            sum += score->score;
             avg_ctr++;
         }
         loop++;
-        printf("AVG: %d\n", sum);
+        printf("AVG: %d\n", sum / avg_ctr);
         sum = 0;
         avg_ctr = 0;
     }
