@@ -174,27 +174,31 @@ void draw_playground(int player1, int player2, Score arr[])
 }
 int winner(Score arr[])
 {
-    // 15, 6, 24
     int x;
-    int counter_x = 0;
     int y;
-    int counter_y = 0;
     int i;
-    int current_winner = 0;
-    int prev_winner = 0;
 
     // horizontal check
     for (i = 0; i < 9; i+= 3)
     {
         if (arr[i].player == arr[i + 1].player && arr[i].player == arr[i + 2].player)
+        {
+            gotoxy(50,20);
+            printf("Hori i>>>> %d", i);
             return arr[i].player;
+        }
     }
 
     // vertical check
     for (i = 0; i < 3; i++)
     {
-        if(arr[i].player == arr[i + 3].player && arr[i + 6].player)
+        if(arr[i].player == arr[i + 3].player && arr[i].player  == arr[i + 6].player)
+        {
+            gotoxy(50,20);
+            printf("Vertical i>>>> %d", i);
             return arr[i].player;
+
+        }
     }
 
     // diagonal check
@@ -203,12 +207,21 @@ int winner(Score arr[])
         if (i == 0)
         {
             if(arr[i].player == arr[i + 4].player && arr[i].player == arr[i + 8].player)
+            {
+                gotoxy(50,20);
+                printf("diagonal i>>>> %d", i);
                 return arr[i].player;
+
+            }
         }
         else
         {
             if(arr[i].player == arr[i + 2].player && arr[i].player == arr[i + 4].player)
+            {
+                gotoxy(50,20);
+                printf("diagonal i>>>> %d", i);
                 return arr[i].player;
+            }
         }
     }
     // still can take values
