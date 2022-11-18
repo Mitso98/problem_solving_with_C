@@ -174,8 +174,6 @@ void draw_playground(int player1, int player2, Score arr[])
 }
 int winner(Score arr[])
 {
-    int x;
-    int y;
     int i;
 
     // horizontal check
@@ -197,7 +195,6 @@ int winner(Score arr[])
             gotoxy(50,20);
             printf("Vertical i>>>> %d", i);
             return arr[i].player;
-
         }
     }
 
