@@ -79,10 +79,11 @@ void draw_playground(int player1, int player2, Score arr[])
 
         do
         {
-
+            input = 0;
             gotoxy(0, 0);
+
             printf("Enter position: \n");
-            scanf("%i", &input);
+            scanf(" %i", &input);
             is_valid = 1;
             for (int i = 0; i < 9; i++)
             {
@@ -92,13 +93,17 @@ void draw_playground(int player1, int player2, Score arr[])
                     break;
                 }
             }
-            if (is_valid == 1)
+            if (is_valid == 1 && input >= 1 && input <= 9)
             {
                 arr[input - 1].player = current_player;
                 arr[input - 1].pos = input;
             }
+            else
+            {
+                is_valid = 0;
+            }
         }
-        while (counter != 9 && is_valid == 0);
+        while (is_valid == 0);
         counter++;
 
         if (input >= 1 && input <= 9)

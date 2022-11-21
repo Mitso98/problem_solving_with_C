@@ -1,15 +1,16 @@
 # depslib dependency file v1.0
-1668758830 source:d:\iti\c\labs\problem_solving_with_c\lab7\x_o\main.c
+1668870411 source:d:\iti\algo&ds\day2\car_race\main.c
 	<stdio.h>
 	<stdlib.h>
 	<dos.h>
 	<dir.h>
 	<windows.h>
 
-1668772872 source:d:\iti\c\labs\problem_solving_with_c\x_o\main.c
+1669063160 source:d:\iti\c\labs\problem_solving_with_c\car_race\main.c
 	<stdio.h>
 	<stdlib.h>
 	<dos.h>
 	<dir.h>
 	<windows.h>
+	<time.h>
 
