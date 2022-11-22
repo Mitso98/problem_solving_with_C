@@ -8,7 +8,7 @@
 #define SPEED 3
 #define CAR_LENGTH 3
 #define CAR_WIDTH 3
-#define TRACK_LENGTH 18
+#define TRACK_LENGTH 20
 #define TRACK_WIDTH 30
 #define START_ROW 3
 #define START_COL 20
@@ -17,11 +17,11 @@ void show_start_message(char *is_start_message);
 void draw_square(int col, int row, int length, int width);
 void gotoxy(int x, int y);
 void control_extended_keys(int input, int* col, int* row);
-void opponent(int *random_col, int *change_row, int *score);
+void opponent(int *random_col, int *change_row, int *score, int* col);
 int detect_lose(int counter, int col, int row, int random_col);
 void hidecursor();
 void SetColor(int ForgC);
-void delay(int number_of_seconds);
+
 
 int main()
 {
@@ -48,7 +48,7 @@ int main()
         draw_square(START_COL, START_ROW, TRACK_LENGTH, TRACK_WIDTH);
 
         // OPONENT
-        opponent(&random_col, &change_row, &score);
+        opponent(&random_col, &change_row, &score, &col);
 
         // CAR
         draw_square(col, row, CAR_LENGTH, CAR_WIDTH);
@@ -143,8 +143,20 @@ void control_extended_keys(int input, int* col, int* row)
         *col -= SPEED;
     }
 }
-void opponent(int *random_col, int *change_row, int *score)
+void opponent(int *random_col, int *change_row, int *score, int *col)
 {
+    // each 3 times try to hit the player
+    if (20 == *score && *change_row > 3)
+    {
+        *random_col = *col;
+    }
+
+    // each 3 times try to hit the player
+    if (*score % 3 == 0 && *change_row == 1)
+    {
+        *random_col = *col;
+    }
+
     SetColor(4);
     draw_square(*random_col, START_ROW + *change_row, CAR_LENGTH, CAR_WIDTH);
     SetColor(7);
@@ -211,16 +223,4 @@ void hidecursor()
     info.dwSize = 100;
     info.bVisible = FALSE;
     SetConsoleCursorInfo(consoleHandle, &info);
-}
-void delay(int number_of_seconds)
-{
-    // Converting time into milli_seconds
-    int milli_seconds = 1000 * number_of_seconds;
-
-    // Storing start time
-    clock_t start_time = clock();
-
-    // looping till required time is not achieved
-    while (clock() < start_time + milli_seconds)
-        ;
 }
